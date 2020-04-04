@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+source tools/printer.sh
+
+if [ "${#}" -ne 1 ]; then
+    printf "$(basename "${0}"): invalid usage\n"
+    exit 1
+fi
+
+case "${1}" in
+    "--version" )
+        printf "$(basename "${0}") v$(cat VERSION)\n" ;;
+    "--current" )
+        current ;;
+esac
