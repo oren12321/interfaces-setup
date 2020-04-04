@@ -6,7 +6,7 @@ set -Eeuo pipefail
 [ "${DEBUG}" -eq 1 ] && set -x
 
 [ "${#}" -ne 1 ] && \
-    { printf "usage: ini-parser.sh <ini-file-path>\n"; exit 1; }
+    { printf "usage: ini-parser.sh <ini-file-path>\n" >&2; exit 1; }
 
 declare_from_ini() {
     while IFS= read -r line; do
