@@ -32,10 +32,3 @@ setup_rx_ring() {
     (ethtool --show-ring "${1}" | grep -i rx | grep -q "${2}") || \
         ethtool --set-ring "${1}" rx "${2}"
 }
-
-setup_interface() {
-    __setup_ip && \
-    __setup_route && \
-    __setup_rx_coalescing && \
-    __setup_rx_ring
-}
