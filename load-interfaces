@@ -6,7 +6,7 @@ set -Eeuo pipefail
 
 case "${1}" in
     "--version" | "-v" )
-        printf "$(basename "${0}") v$(cat VERSION)\n" ;;
+        { printf "$(basename "${0}") v$(cat VERSION)\n"; exit 0; } ;;
     "--help" | "-h" )
-        printf "usage: ./$(basename "${0}") or bash $(basename "${0}")\n"
+        { printf "usage: ./$(basename "${0}") or bash $(basename "${0}")\n"; exit 0; } ;;
 esac
