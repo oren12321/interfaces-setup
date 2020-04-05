@@ -4,9 +4,26 @@ set -Eeuo pipefail
 [ -z "${DEBUG:-}" ] && DEBUG=0
 [ "${DEBUG}" -eq 1 ] && set -x
 
-case "${1}" in
+case "${1:-}" in
     "--version" | "-v" )
         { printf "$(basename "${0}") v$(cat VERSION)\n"; exit 0; } ;;
     "--help" | "-h" )
         { printf "usage: ./$(basename "${0}") or bash $(basename "${0}")\n"; exit 0; } ;;
 esac
+
+source tools/networking.sh
+source tools/ini-parser.sh config/interfaces.ini
+
+# parameters
+#   section index
+setup_interface() {
+    setup_ip "${sections[${1}]}" "$(get_ini_param ${1} ip)"
+    setup_route "${sections[${1}]}" "$(get_ini_param ${1} route)"
+    setup_rx_coalescing "${sections[${1}]}" "$(get_ini_param ${1} rx_delay)"
+    setup_rx_ring "${sections[${1}]}" "$(get_ini_param ${1} rx_burst)"
+}
+
+# Setup all interfaces
+for section_index in "${!sections[@]}"; do
+    setup_interface ${section_index}
+done
