@@ -19,8 +19,8 @@ source tools/ini-parser.sh config/interfaces.ini
 setup_interface() {
     setup_ip "${sections[${1}]}" "$(get_ini_param ${1} ip)"
     setup_route "${sections[${1}]}" "$(get_ini_param ${1} route)"
-    setup_rx_coalescing "${sections[${1}]}" "$(get_ini_param ${1} rx_delay)"
-    setup_rx_ring "${sections[${1}]}" "$(get_ini_param ${1} rx_burst)"
+    setup_rx_coalescing "${sections[${1}]}" "$(get_ini_param ${1} rx_coalesce)"
+    setup_rx_ring "${sections[${1}]}" "$(get_ini_param ${1} rx_ring)"
 }
 
 # Setup all interfaces
