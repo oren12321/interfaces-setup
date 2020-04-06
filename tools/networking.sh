@@ -28,7 +28,7 @@ setup_ip() {
 #   interface
 #   ip/netmask
 setup_route() {
-    ip route add "${1}" dev "${2}"
+    ip route add "${2}" dev "${1}"
 }
 
 # parameters
